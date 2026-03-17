@@ -114,6 +114,7 @@ def send_webhook(webhook_url: str, embed: dict) -> bool:
 def main() -> int:
     webhook_url = get_webhook_url()
     now = datetime.now(tz=timezone.utc)
+    test_mode = "--test" in sys.argv
 
     # 이벤트 수집
     events: list[CTFEvent] = []
@@ -130,6 +131,19 @@ def main() -> int:
         return 0
 
     print(f"수집된 이벤트: {len(events)}개")
+
+    # --test: 가장 가까운 이벤트 하나를 테스트 전송
+    if test_mode:
+        future = [e for e in events if e.start > now]
+        future.sort(key=lambda e: e.start)
+        if future:
+            event = future[0]
+            embed = build_embed(event, "\U0001f9ea", "테스트 알림")
+            send_webhook(webhook_url, embed)
+            print(f"[TEST] 테스트 알림 전송: {event.title}")
+        else:
+            print("[TEST] 미래 이벤트 없음")
+        return 0
 
     # 상태 로드
     notified = state.load()

@@ -3,7 +3,12 @@ name: Check CTFs & Notify
 on:
   schedule:
     - cron: "0 * * * *"  # 매시간 실행
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      test:
+        description: "테스트 모드 (가장 가까운 CTF 1개 알림)"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -25,7 +30,7 @@ jobs:
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
         working-directory: scripts
-        run: python notify.py
+        run: python notify.py ${{ github.event.inputs.test == 'true' && '--test' || '' }}
 
       - name: Commit state changes
         run: |
