@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import os
 import sys
+import time
 
 import httpx
 
@@ -119,8 +120,15 @@ def main() -> int:
     for cmd in COMMANDS:
         try:
             resp = httpx.post(url, json=cmd, headers=headers, timeout=15)
+            # Rate limit 처리
+            if resp.status_code == 429:
+                retry_after = resp.json().get("retry_after", 2)
+                print(f"[WAIT] Rate limited, {retry_after}s 대기...")
+                time.sleep(retry_after + 0.5)
+                resp = httpx.post(url, json=cmd, headers=headers, timeout=15)
             resp.raise_for_status()
             print(f"[OK] /{cmd['name']} 등록 완료")
+            time.sleep(1)  # Rate limit 방지
         except httpx.HTTPError as e:
             print(f"[ERROR] /{cmd['name']} 등록 실패: {e}")
             if hasattr(e, "response") and e.response is not None:
