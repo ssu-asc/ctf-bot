@@ -27,16 +27,12 @@ export async function handleEndCtf(interaction, env) {
     return `\u{1f4e6} **${ctfName}**은(는) 이미 아카이브되었습니다.`;
   }
 
-  // Archive 카테고리 확인/생성
-  let archiveId = await kv.get(`archive:${guildId}`);
-  if (!archiveId) {
-    let archive = await findCategory(guildId, "CTF-Archive", token);
-    if (!archive) {
-      archive = await createCategory(guildId, "CTF-Archive", token);
-    }
-    archiveId = archive.id;
-    await kv.put(`archive:${guildId}`, archiveId);
+  // Archive 카테고리 확인/생성 (항상 서버에서 확인)
+  let archive = await findCategory(guildId, "CTF-Archive", token);
+  if (!archive) {
+    archive = await createCategory(guildId, "CTF-Archive", token);
   }
+  const archiveId = archive.id;
 
   // 포럼 채널 이동 + 읽기전용
   if (ctfState.forumChannelId) {

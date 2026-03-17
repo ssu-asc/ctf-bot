@@ -39,16 +39,13 @@ export async function handleNewCtf(interaction, env) {
     return `\u26a0\ufe0f **${ctfName}** CTF가 이미 진행 중입니다.`;
   }
 
-  // 1. CTF 카테고리 확인/생성
-  let categoryId = await kv.get(`category:${guildId}`);
-  if (!categoryId) {
-    let category = await findCategory(guildId, "CTF", token);
-    if (!category) {
-      category = await createCategory(guildId, "CTF", token);
-    }
-    categoryId = category.id;
-    await kv.put(`category:${guildId}`, categoryId);
+  // 1. CTF 카테고리 확인/생성 (항상 서버에서 확인)
+  let category = await findCategory(guildId, "CTF", token);
+  if (!category) {
+    category = await createCategory(guildId, "CTF", token);
   }
+  const categoryId = category.id;
+  await kv.put(`category:${guildId}`, categoryId);
 
   // 2. 포럼 채널 생성
   const forum = await createForumChannel(
