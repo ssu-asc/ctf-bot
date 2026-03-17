@@ -13,9 +13,11 @@ Environment:
 
 from __future__ import annotations
 
+import json
 import os
 import sys
 from datetime import datetime, timedelta, timezone
+from pathlib import Path
 
 import httpx
 
@@ -23,6 +25,8 @@ import fetch_ctftime
 import scrape_kctf
 import state
 from models import CTFEvent
+
+KCTF_CACHE = Path(__file__).resolve().parent.parent / "data" / "kctf.json"
 
 KST = timezone(timedelta(hours=9))
 
@@ -108,7 +112,12 @@ def main() -> int:
     # 이벤트 수집
     events: list[CTFEvent] = []
     events.extend(fetch_ctftime.fetch())
-    events.extend(scrape_kctf.fetch())
+
+    kctf_events = scrape_kctf.fetch()
+    events.extend(kctf_events)
+
+    # K-CTF 결과를 캐시 파일에 저장 (/korean 커맨드용)
+    _save_kctf_cache(kctf_events)
 
     if not events:
         print("수집된 이벤트 없음")
@@ -141,6 +150,19 @@ def main() -> int:
 
     print(f"전송 완료: {sent_count}건")
     return 0
+
+
+def _save_kctf_cache(events: list[CTFEvent]) -> None:
+    """K-CTF 이벤트를 JSON 캐시 파일에 저장합니다."""
+    data = {
+        "updated_at": datetime.now(tz=timezone.utc).isoformat(),
+        "events": [e.to_dict() for e in events],
+    }
+    KCTF_CACHE.write_text(
+        json.dumps(data, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+    print(f"[K-CTF] 캐시 저장: {len(events)}개 이벤트")
 
 
 def _cleanup_old_entries(notified: dict, now: datetime) -> None:
