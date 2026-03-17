@@ -50,10 +50,16 @@ ALERT_CONFIG = [
         "check": lambda e, now: timedelta(hours=23) <= (e.start - now) <= timedelta(hours=25),
     },
     {
-        "type": "reg_open",
+        "type": "starts_3d",
         "emoji": "\U0001f4cb",
-        "label": "등록 시작",
-        "check": lambda e, now: e.reg_start is not None and e.reg_start <= now and (now - e.reg_start) < timedelta(hours=1),
+        "label": "3일 전",
+        "check": lambda e, now: timedelta(hours=71) <= (e.start - now) <= timedelta(hours=73),
+    },
+    {
+        "type": "starts_7d",
+        "emoji": "\U0001f4c5",
+        "label": "1주일 전",
+        "check": lambda e, now: timedelta(hours=167) <= (e.start - now) <= timedelta(hours=169),
     },
 ]
 
