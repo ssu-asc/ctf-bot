@@ -21,7 +21,7 @@ import {
 const FORUM_TAGS = [
   { name: "unsolved", moderated: false, emoji_name: "\u274c" },
   { name: "solved", moderated: false, emoji_name: "\u2705" },
-  { name: "discussion", moderated: false, emoji_name: "\U0001f4ac" },
+  { name: "discussion", moderated: false, emoji_name: "\u{1f4ac}" },
 ];
 
 export async function handleNewCtf(interaction, env) {
@@ -88,7 +88,7 @@ export async function handleNewCtf(interaction, env) {
   // 4. 음성 채널 생성
   const voice = await createVoiceChannel(
     guildId,
-    `\U0001f50a ${ctfName} 회의실`,
+    `\u{1f50a} ${ctfName} 회의실`,
     categoryId,
     token
   );
@@ -110,8 +110,8 @@ export async function handleNewCtf(interaction, env) {
 
   return reply(
     `\u2705 **${ctfName}** CTF 환경이 생성되었습니다!\n` +
-      `\U0001f4cb 포럼: <#${forum.id}>\n` +
-      `\U0001f50a 음성: <#${voice.id}>\n\n` +
+      `\u{1f4cb} 포럼: <#${forum.id}>\n` +
+      `\u{1f50a} 음성: <#${voice.id}>\n\n` +
       `\`/chall <name> <category>\`로 문제를 추가하세요.`
   );
 }
@@ -121,7 +121,7 @@ export function buildStatusMessage(ctfName, challenges) {
   const total = challenges.length;
   const solvedCount = solved.length;
 
-  let lines = [`\U0001f4ca **${ctfName}** 진행 현황`, "\u2501".repeat(20)];
+  let lines = [`\u{1f4ca} **${ctfName}** 진행 현황`, "\u2501".repeat(20)];
 
   if (total === 0) {
     lines.push("`/chall <name> <category>` 로 문제를 추가하세요.");

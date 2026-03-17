@@ -86,7 +86,7 @@ export async function handleSolve(interaction, env, isSolve = true) {
 
   if (isSolve) {
     return reply(
-      `\U0001f389 **${label}** 풀이 완료! (${solved}/${total} solved)`
+      `\u{1f389} **${label}** 풀이 완료! (${solved}/${total} solved)`
     );
   } else {
     return reply(

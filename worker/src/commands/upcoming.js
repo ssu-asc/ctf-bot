@@ -24,7 +24,7 @@ export async function handleUpcoming(interaction) {
   }
 
   if (!events || events.length === 0) {
-    return reply(`\U0001f4c5 향후 ${days}일간 예정된 CTF가 없습니다.`);
+    return reply(`\u{1f4c5} 향후 ${days}일간 예정된 CTF가 없습니다.`);
   }
 
   const embeds = events.slice(0, 10).map((event) => {
@@ -37,9 +37,9 @@ export async function handleUpcoming(interaction) {
       title: event.title,
       url: event.ctftime_url || event.url,
       description: [
-        `\U0001f4c5 ${startKST} ~ ${finishKST} KST`,
-        `\U0001f3ae ${event.format || "N/A"}${event.weight ? `  \u2696\ufe0f ${event.weight.toFixed(2)}` : ""}`,
-        event.restrictions ? `\U0001f512 ${event.restrictions}` : null,
+        `\u{1f4c5} ${startKST} ~ ${finishKST} KST`,
+        `\u{1f3ae} ${event.format || "N/A"}${event.weight ? `  \u2696\ufe0f ${event.weight.toFixed(2)}` : ""}`,
+        event.restrictions ? `\u{1f512} ${event.restrictions}` : null,
       ]
         .filter(Boolean)
         .join("\n"),
@@ -52,7 +52,7 @@ export async function handleUpcoming(interaction) {
     JSON.stringify({
       type: 4,
       data: {
-        content: `\U0001f4c5 **향후 ${days}일간 예정된 CTF** (${events.length}개)`,
+        content: `\u{1f4c5} **향후 ${days}일간 예정된 CTF** (${events.length}개)`,
         embeds,
       },
     }),

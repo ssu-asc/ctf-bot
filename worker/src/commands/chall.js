@@ -70,7 +70,7 @@ export async function handleChall(interaction, env) {
   const solved = ctfState.challenges.filter((c) => c.solved).length;
 
   return reply(
-    `\U0001f4dd **${label}** 등록! \u2192 <#${thread.id}>에서 토론하세요 (${solved}/${total} solved)`
+    `\u{1f4dd} **${label}** 등록! \u2192 <#${thread.id}>에서 토론하세요 (${solved}/${total} solved)`
   );
 }
 

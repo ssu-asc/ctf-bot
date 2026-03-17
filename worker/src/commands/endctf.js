@@ -26,7 +26,7 @@ export async function handleEndCtf(interaction, env) {
     return ephemeralReply(`\u26a0\ufe0f **${ctfName}** CTF를 찾을 수 없습니다.`);
   }
   if (ctfState.archived) {
-    return ephemeralReply(`\U0001f4e6 **${ctfName}**은(는) 이미 아카이브되었습니다.`);
+    return ephemeralReply(`\u{1f4e6} **${ctfName}**은(는) 이미 아카이브되었습니다.`);
   }
 
   // Archive 카테고리 확인/생성
@@ -64,7 +64,7 @@ export async function handleEndCtf(interaction, env) {
   const total = ctfState.challenges.length;
 
   return reply(
-    `\U0001f4e6 **${ctfName}** 아카이브 완료! (최종: ${solved}/${total} solved)`
+    `\u{1f4e6} **${ctfName}** 아카이브 완료! (최종: ${solved}/${total} solved)`
   );
 }
 
