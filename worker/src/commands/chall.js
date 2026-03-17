@@ -1,9 +1,7 @@
 /**
  * /chall <name> [category] - 새 문제를 등록합니다.
  *
- * 1. 현재 포럼 채널에서 CTF 상태 찾기
- * 2. 포럼에 새 포스트(쓰레드) 생성
- * 3. KV 상태 업데이트 + 상태 메시지 갱신
+ * Returns: string (followup 메시지 내용)
  */
 
 import { createForumPost, editMessage, getChannel } from "../discord.js";
@@ -26,9 +24,7 @@ export async function handleChall(interaction, env) {
   // 현재 채널에서 CTF 찾기
   const ctfData = await findCtfByChannel(guildId, channelId, kv, token);
   if (!ctfData) {
-    return ephemeralReply(
-      "\u26a0\ufe0f CTF 포럼 채널에서 실행해주세요. (`/newctf`로 먼저 CTF를 만드세요)"
-    );
+    return "\u26a0\ufe0f CTF 포럼 채널에서 실행해주세요. (`/newctf`로 먼저 CTF를 만드세요)";
   }
 
   const { key, state: ctfState } = ctfData;
@@ -38,7 +34,7 @@ export async function handleChall(interaction, env) {
     (c) => c.name.toLowerCase() === challName.toLowerCase()
   );
   if (existing) {
-    return ephemeralReply(`\u26a0\ufe0f **${challName}** 문제가 이미 등록되어 있습니다.`);
+    return `\u26a0\ufe0f **${challName}** 문제가 이미 등록되어 있습니다.`;
   }
 
   // 포럼에 새 포스트 생성
@@ -69,17 +65,13 @@ export async function handleChall(interaction, env) {
   const total = ctfState.challenges.length;
   const solved = ctfState.challenges.filter((c) => c.solved).length;
 
-  return reply(
-    `\u{1f4dd} **${label}** 등록! \u2192 <#${thread.id}>에서 토론하세요 (${solved}/${total} solved)`
-  );
+  return `\u{1f4dd} **${label}** 등록! \u2192 <#${thread.id}>에서 토론하세요 (${solved}/${total} solved)`;
 }
 
 /**
  * 현재 채널 ID로부터 CTF를 찾습니다.
- * 포럼 채널 또는 포럼 내 쓰레드에서 실행 가능.
  */
 async function findCtfByChannel(guildId, channelId, kv, token) {
-  // KV를 list로 검색
   const prefix = `ctf:${guildId}:`;
   const keys = await kv.list({ prefix });
 
@@ -87,14 +79,12 @@ async function findCtfByChannel(guildId, channelId, kv, token) {
     const data = await kv.get(key, "json");
     if (!data || data.archived) continue;
 
-    // 포럼 채널 자체이거나, 포럼 내 쓰레드인 경우
     if (data.forumChannelId === channelId) {
       return { key, state: data };
     }
     if (data.generalThreadId === channelId) {
       return { key, state: data };
     }
-    // 문제 쓰레드인 경우
     const challThread = data.challenges.find((c) => c.threadId === channelId);
     if (challThread) {
       return { key, state: data };
@@ -131,17 +121,3 @@ async function updateStatusMessage(ctfState, token) {
 }
 
 export { findCtfByChannel, updateStatusMessage };
-
-function reply(content) {
-  return new Response(
-    JSON.stringify({ type: 4, data: { content } }),
-    { headers: { "Content-Type": "application/json" } }
-  );
-}
-
-function ephemeralReply(content) {
-  return new Response(
-    JSON.stringify({ type: 4, data: { content, flags: 64 } }),
-    { headers: { "Content-Type": "application/json" } }
-  );
-}

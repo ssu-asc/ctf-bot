@@ -6,6 +6,8 @@
  * 3. "general" 포스트 자동 생성 + 상태 메시지 핀
  * 4. 음성 채널 생성
  * 5. KV에 CTF 상태 저장
+ *
+ * Returns: string (followup 메시지 내용)
  */
 
 import {
@@ -34,7 +36,7 @@ export async function handleNewCtf(interaction, env) {
   const existingKey = `ctf:${guildId}:${ctfName}`;
   const existing = await kv.get(existingKey, "json");
   if (existing && !existing.archived) {
-    return ephemeralReply(`\u26a0\ufe0f **${ctfName}** CTF가 이미 진행 중입니다.`);
+    return `\u26a0\ufe0f **${ctfName}** CTF가 이미 진행 중입니다.`;
   }
 
   // 1. CTF 카테고리 확인/생성
@@ -73,9 +75,7 @@ export async function handleNewCtf(interaction, env) {
     token
   );
 
-  // 핀 메시지 (포스트 생성 시 첫 메시지 ID = generalPost.id 내부)
   const generalThreadId = generalPost.id;
-  // 포럼 포스트의 첫 메시지 ID 가져오기
   const statusMessageId = generalPost.message?.id || generalPost.id;
   if (statusMessageId && generalThreadId) {
     try {
@@ -108,11 +108,11 @@ export async function handleNewCtf(interaction, env) {
   };
   await kv.put(existingKey, JSON.stringify(ctfState));
 
-  return reply(
+  return (
     `\u2705 **${ctfName}** CTF 환경이 생성되었습니다!\n` +
-      `\u{1f4cb} 포럼: <#${forum.id}>\n` +
-      `\u{1f50a} 음성: <#${voice.id}>\n\n` +
-      `\`/chall <name> <category>\`로 문제를 추가하세요.`
+    `\u{1f4cb} 포럼: <#${forum.id}>\n` +
+    `\u{1f50a} 음성: <#${voice.id}>\n\n` +
+    `\`/chall <name> <category>\`로 문제를 추가하세요.`
   );
 }
 
@@ -138,18 +138,4 @@ export function buildStatusMessage(ctfName, challenges) {
   lines.push(`**${solvedCount}/${total} solved**`);
 
   return lines.join("\n");
-}
-
-function reply(content) {
-  return new Response(
-    JSON.stringify({ type: 4, data: { content } }),
-    { headers: { "Content-Type": "application/json" } }
-  );
-}
-
-function ephemeralReply(content) {
-  return new Response(
-    JSON.stringify({ type: 4, data: { content, flags: 64 } }),
-    { headers: { "Content-Type": "application/json" } }
-  );
 }

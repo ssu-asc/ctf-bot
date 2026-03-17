@@ -2,7 +2,7 @@
  * /solve [name] - 문제를 풀이 완료로 표시합니다.
  * /unsolve [name] - 풀이를 취소합니다.
  *
- * 현재 문제 쓰레드 안에서 실행하면 name 생략 가능.
+ * Returns: string (followup 메시지 내용)
  */
 
 import { updateThreadTags } from "../discord.js";
@@ -21,9 +21,7 @@ export async function handleSolve(interaction, env, isSolve = true) {
   // CTF 찾기
   const ctfData = await findCtfByChannel(guildId, channelId, kv, token);
   if (!ctfData) {
-    return ephemeralReply(
-      "\u26a0\ufe0f CTF 채널에서 실행해주세요."
-    );
+    return "\u26a0\ufe0f CTF 채널에서 실행해주세요.";
   }
 
   const { key, state: ctfState } = ctfData;
@@ -35,27 +33,24 @@ export async function handleSolve(interaction, env, isSolve = true) {
       (c) => c.name.toLowerCase() === challName.toLowerCase()
     );
   } else {
-    // 현재 쓰레드에서 문제 찾기
     challenge = ctfState.challenges.find((c) => c.threadId === channelId);
   }
 
   if (!challenge) {
-    return ephemeralReply(
-      challName
-        ? `\u26a0\ufe0f **${challName}** 문제를 찾을 수 없습니다.`
-        : "\u26a0\ufe0f 문제 쓰레드에서 실행하거나, 문제 이름을 지정해주세요."
-    );
+    return challName
+      ? `\u26a0\ufe0f **${challName}** 문제를 찾을 수 없습니다.`
+      : "\u26a0\ufe0f 문제 쓰레드에서 실행하거나, 문제 이름을 지정해주세요.";
   }
 
   if (isSolve) {
     if (challenge.solved) {
-      return ephemeralReply(`\u2705 **${challenge.name}**은(는) 이미 풀이 완료입니다.`);
+      return `\u2705 **${challenge.name}**은(는) 이미 풀이 완료입니다.`;
     }
     challenge.solved = true;
     challenge.solvedBy = userId;
   } else {
     if (!challenge.solved) {
-      return ephemeralReply(`\u274c **${challenge.name}**은(는) 아직 미풀이 상태입니다.`);
+      return `\u274c **${challenge.name}**은(는) 아직 미풀이 상태입니다.`;
     }
     challenge.solved = false;
     challenge.solvedBy = null;
@@ -85,26 +80,8 @@ export async function handleSolve(interaction, env, isSolve = true) {
     : challenge.name;
 
   if (isSolve) {
-    return reply(
-      `\u{1f389} **${label}** 풀이 완료! (${solved}/${total} solved)`
-    );
+    return `\u{1f389} **${label}** 풀이 완료! (${solved}/${total} solved)`;
   } else {
-    return reply(
-      `\u21a9\ufe0f **${label}** 풀이 취소 (${solved}/${total} solved)`
-    );
+    return `\u21a9\ufe0f **${label}** 풀이 취소 (${solved}/${total} solved)`;
   }
-}
-
-function reply(content) {
-  return new Response(
-    JSON.stringify({ type: 4, data: { content } }),
-    { headers: { "Content-Type": "application/json" } }
-  );
-}
-
-function ephemeralReply(content) {
-  return new Response(
-    JSON.stringify({ type: 4, data: { content, flags: 64 } }),
-    { headers: { "Content-Type": "application/json" } }
-  );
 }

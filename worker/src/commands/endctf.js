@@ -1,9 +1,7 @@
 /**
  * /endctf <name> - CTF를 종료하고 아카이브합니다.
  *
- * 1. 포럼 채널 + 음성 채널을 "CTF-Archive" 카테고리로 이동
- * 2. 포럼 채널 권한을 읽기전용으로 변경
- * 3. KV에서 archived: true 마킹
+ * Returns: string (followup 메시지 내용)
  */
 
 import {
@@ -23,10 +21,10 @@ export async function handleEndCtf(interaction, env) {
   const ctfState = await kv.get(key, "json");
 
   if (!ctfState) {
-    return ephemeralReply(`\u26a0\ufe0f **${ctfName}** CTF를 찾을 수 없습니다.`);
+    return `\u26a0\ufe0f **${ctfName}** CTF를 찾을 수 없습니다.`;
   }
   if (ctfState.archived) {
-    return ephemeralReply(`\u{1f4e6} **${ctfName}**은(는) 이미 아카이브되었습니다.`);
+    return `\u{1f4e6} **${ctfName}**은(는) 이미 아카이브되었습니다.`;
   }
 
   // Archive 카테고리 확인/생성
@@ -63,21 +61,5 @@ export async function handleEndCtf(interaction, env) {
   const solved = ctfState.challenges.filter((c) => c.solved).length;
   const total = ctfState.challenges.length;
 
-  return reply(
-    `\u{1f4e6} **${ctfName}** 아카이브 완료! (최종: ${solved}/${total} solved)`
-  );
-}
-
-function reply(content) {
-  return new Response(
-    JSON.stringify({ type: 4, data: { content } }),
-    { headers: { "Content-Type": "application/json" } }
-  );
-}
-
-function ephemeralReply(content) {
-  return new Response(
-    JSON.stringify({ type: 4, data: { content, flags: 64 } }),
-    { headers: { "Content-Type": "application/json" } }
-  );
+  return `\u{1f4e6} **${ctfName}** 아카이브 완료! (최종: ${solved}/${total} solved)`;
 }
