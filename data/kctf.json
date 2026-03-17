@@ -1,4 +1,75 @@
 {
-  "updated_at": "2026-03-17T01:41:32.229573+00:00",
-  "events": []
+  "updated_at": "2026-03-17T01:45:37.651172+00:00",
+  "events": [
+    {
+      "id": "kctf-2025-enki-redteam-ctf",
+      "title": "2025 ENKI Redteam CTF",
+      "start": "2026-03-21T00:00:00+09:00",
+      "finish": "2026-03-22T00:00:00+09:00",
+      "url": "http://k-ctf.org/contests/69a66c16c431b0b53a904232",
+      "format": "주최:ENKI|운영:ENKI",
+      "weight": 0.0,
+      "source": "kctf"
+    },
+    {
+      "id": "kctf-2026-codegate",
+      "title": "2026 CODEGATE",
+      "start": "2026-03-28T00:00:00+09:00",
+      "finish": "2026-03-29T00:00:00+09:00",
+      "url": "http://k-ctf.org/contests/69b803a9c431b0b53a9042ff",
+      "format": "주최:HANCOM|운영:ENKI",
+      "weight": 0.0,
+      "source": "kctf"
+    },
+    {
+      "id": "kctf-2026-incognito-ctf",
+      "title": "2026 INCOGNITO CTF",
+      "start": "2026-02-07T00:00:00+09:00",
+      "finish": "2026-02-08T00:00:00+09:00",
+      "url": "http://k-ctf.org/contests/69614a50c431b0b53a9041f5",
+      "format": "주최:INCOGNITO|운영:INCOGNITO",
+      "weight": 0.0,
+      "source": "kctf"
+    },
+    {
+      "id": "kctf-제-2회-스트로베리-ctf",
+      "title": "제 2회 스트로베리 CTF",
+      "start": "2026-02-28T00:00:00+09:00",
+      "finish": "2026-03-01T00:00:00+09:00",
+      "url": "http://k-ctf.org/contests/6981fed8c431b0b53a904210",
+      "format": "주최:0xB1N4RY COMMUNITY",
+      "weight": 0.0,
+      "source": "kctf"
+    },
+    {
+      "id": "kctf-제5회-한양-해킹방어대회-hctf-with-hspace",
+      "title": "제5회 한양 해킹방어대회 HCTF with HSPACE",
+      "start": "2026-02-08T00:00:00+09:00",
+      "finish": "2026-02-09T00:00:00+09:00",
+      "url": "http://k-ctf.org/contests/6976e4e9c431b0b53a904204",
+      "format": "주최:한양대학교 소프트웨어대학|운영:한양대학교 학생보안팀 ICEWALL",
+      "weight": 0.0,
+      "source": "kctf"
+    },
+    {
+      "id": "kctf-dreamhack-invitational-quals-2026",
+      "title": "Dreamhack Invitational Quals 2026",
+      "start": "2026-01-24T00:00:00+09:00",
+      "finish": "2026-01-25T00:00:00+09:00",
+      "url": "http://k-ctf.org/contests/692d2001e18e9daec7dfbf23",
+      "format": "주최:Dreamhack",
+      "weight": 0.0,
+      "source": "kctf"
+    },
+    {
+      "id": "kctf-2026-unicon",
+      "title": "2026 UNICON",
+      "start": "2026-01-24T00:00:00+09:00",
+      "finish": "2026-01-25T00:00:00+09:00",
+      "url": "http://k-ctf.org/contests/69744e51c431b0b53a904200",
+      "format": "주최:선린인터넷고등학교, Unifox",
+      "weight": 0.0,
+      "source": "kctf"
+    }
+  ]
 }

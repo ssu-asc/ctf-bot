@@ -2,20 +2,22 @@
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+import re
+from datetime import datetime, timezone, timedelta
 
 import httpx
 from bs4 import BeautifulSoup
 
 from models import CTFEvent
 
-KCTF_URL = "https://k-ctf.org"
+KCTF_URL = "http://k-ctf.org"
+KST = timezone(timedelta(hours=9))
 
 
 def fetch() -> list[CTFEvent]:
-    """K-CTF에서 예정된 CTF 이벤트를 가져옵니다."""
+    """K-CTF에서 CTF 이벤트를 가져옵니다."""
     try:
-        resp = httpx.get(KCTF_URL, timeout=30, follow_redirects=True)
+        resp = httpx.get(KCTF_URL, timeout=120, follow_redirects=True)
         resp.raise_for_status()
     except httpx.HTTPError as e:
         print(f"[K-CTF] 스크래핑 실패: {e}")
@@ -33,37 +35,50 @@ def _parse_html(html: str) -> list[CTFEvent]:
     soup = BeautifulSoup(html, "html.parser")
     events = []
 
-    # K-CTF는 테이블 형태로 대회 목록을 표시
-    rows = soup.select("table tbody tr")
-    if not rows:
-        # 대체 셀렉터 시도
-        rows = soup.select(".ctf-list .ctf-item, .event-list .event-item")
-
-    for row in rows:
+    cards = soup.select(".contest-card-list")
+    for card in cards:
         try:
-            cols = row.select("td")
-            if len(cols) < 3:
+            # 제목
+            title_tag = card.select_one("h3")
+            if not title_tag:
                 continue
+            title = title_tag.get_text(strip=True)
 
-            title = cols[0].get_text(strip=True)
-            link_tag = cols[0].select_one("a")
-            url = link_tag["href"] if link_tag else KCTF_URL
-            if url.startswith("/"):
-                url = KCTF_URL + url
+            # URL (onclick="location.href='/contests/...'")
+            onclick = card.get("onclick", "")
+            url_match = re.search(r"location\.href='([^']+)'", onclick)
+            url = KCTF_URL + url_match.group(1) if url_match else KCTF_URL
 
-            date_text = cols[1].get_text(strip=True)
-            start, finish = _parse_date_range(date_text)
-            if not start:
-                continue
+            # 주최
+            organizer = ""
+            org_tag = card.select_one("p.text-sm.text-gray-600")
+            if org_tag:
+                organizer = org_tag.get_text(strip=True)
+
+            # 날짜 추출 (카드 텍스트에서)
+            card_text = card.get_text()
+            start = _extract_date(card_text)
+
+            # 상태 (진행 예정 / 종료 등)
+            status = ""
+            for span in card.select("span"):
+                text = span.get_text(strip=True)
+                if text in ("진행 예정", "진행 중", "종료", "신청 중", "신청마감"):
+                    status = text
+                    break
 
             event_id = f"kctf-{title.lower().replace(' ', '-')}"
+            finish = start + timedelta(days=1) if start else datetime.now(tz=KST)
+
             events.append(CTFEvent(
                 id=event_id,
                 title=title,
-                start=start,
+                start=start or datetime.now(tz=KST),
                 finish=finish,
                 url=url,
                 source="kctf",
+                restrictions=status,
+                format=organizer,
             ))
         except Exception:
             continue
@@ -71,19 +86,13 @@ def _parse_html(html: str) -> list[CTFEvent]:
     return events
 
 
-def _parse_date_range(text: str) -> tuple[datetime | None, datetime | None]:
-    """날짜 범위 텍스트를 파싱합니다."""
-    # 여러 형식 시도: "2026-03-20 ~ 2026-03-22", "2026.03.20 - 2026.03.22" 등
-    import re
-
-    text = text.replace(".", "-").replace("/", "-")
-    # "YYYY-MM-DD ~ YYYY-MM-DD" 또는 "YYYY-MM-DD HH:MM ~ YYYY-MM-DD HH:MM"
-    pattern = r"(\d{4}-\d{2}-\d{2})\s*(?:\d{2}:\d{2})?\s*[~\-]\s*(\d{4}-\d{2}-\d{2})\s*(?:\d{2}:\d{2})?"
-    match = re.search(pattern, text)
+def _extract_date(text: str) -> datetime | None:
+    """텍스트에서 날짜를 추출합니다."""
+    # "2026.03.21" 형식
+    match = re.search(r"(\d{4})\.(\d{2})\.(\d{2})", text)
     if match:
-        kst = timezone.utc  # 간소화: KST offset은 알림 로직에서 처리
-        start = datetime.strptime(match.group(1), "%Y-%m-%d").replace(tzinfo=kst)
-        finish = datetime.strptime(match.group(2), "%Y-%m-%d").replace(tzinfo=kst)
-        return start, finish
-
-    return None, None
+        return datetime(
+            int(match.group(1)), int(match.group(2)), int(match.group(3)),
+            tzinfo=KST,
+        )
+    return None
