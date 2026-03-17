@@ -1,0 +1,12 @@
+name = "ctf-bot"
+main = "src/index.js"
+compatibility_date = "2024-01-01"
+
+[vars]
+# DISCORD_PUBLIC_KEY, DISCORD_BOT_TOKEN, DISCORD_APPLICATION_ID
+# -> wrangler secret put 으로 설정
+
+[[kv_namespaces]]
+binding = "CTF_STATE"
+id = "YOUR_KV_NAMESPACE_ID"        # wrangler kv namespace create CTF_STATE 후 교체
+preview_id = "YOUR_PREVIEW_KV_ID"  # wrangler kv namespace create CTF_STATE --preview 후 교체
