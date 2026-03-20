@@ -36,12 +36,14 @@
   },
   "ctftime-3063": {
     "sent": [
-      "starts_3d"
+      "starts_3d",
+      "starts_tomorrow"
     ]
   },
   "ctftime-3203": {
     "sent": [
-      "starts_3d"
+      "starts_3d",
+      "starts_tomorrow"
     ]
   },
   "ctftime-2987": {
