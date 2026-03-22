@@ -1,16 +1,6 @@
 {
-  "updated_at": "2026-03-22T01:59:38.237040+00:00",
+  "updated_at": "2026-03-22T04:26:51.749224+00:00",
   "events": [
-    {
-      "id": "kctf-2025-enki-redteam-ctf",
-      "title": "2025 ENKI Redteam CTF",
-      "start": "2026-03-21T00:00:00+09:00",
-      "finish": "2026-03-22T00:00:00+09:00",
-      "url": "http://k-ctf.org/contests/69a66c16c431b0b53a904232",
-      "format": "주최:ENKI|운영:ENKI",
-      "weight": 0.0,
-      "source": "kctf"
-    },
     {
       "id": "kctf-2026-codegate",
       "title": "2026 CODEGATE",
@@ -28,6 +18,16 @@
       "finish": "2026-02-08T00:00:00+09:00",
       "url": "http://k-ctf.org/contests/69614a50c431b0b53a9041f5",
       "format": "주최:INCOGNITO|운영:INCOGNITO",
+      "weight": 0.0,
+      "source": "kctf"
+    },
+    {
+      "id": "kctf-2025-enki-redteam-ctf",
+      "title": "2025 ENKI Redteam CTF",
+      "start": "2026-03-21T00:00:00+09:00",
+      "finish": "2026-03-22T00:00:00+09:00",
+      "url": "http://k-ctf.org/contests/69a66c16c431b0b53a904232",
+      "format": "주최:ENKI|운영:ENKI",
       "weight": 0.0,
       "source": "kctf"
     },
@@ -58,16 +58,6 @@
       "finish": "2026-01-25T00:00:00+09:00",
       "url": "http://k-ctf.org/contests/692d2001e18e9daec7dfbf23",
       "format": "주최:Dreamhack",
-      "weight": 0.0,
-      "source": "kctf"
-    },
-    {
-      "id": "kctf-2026-unicon",
-      "title": "2026 UNICON",
-      "start": "2026-01-24T00:00:00+09:00",
-      "finish": "2026-01-25T00:00:00+09:00",
-      "url": "http://k-ctf.org/contests/69744e51c431b0b53a904200",
-      "format": "주최:선린인터넷고등학교, Unifox",
       "weight": 0.0,
       "source": "kctf"
     }
