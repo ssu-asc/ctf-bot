@@ -109,7 +109,8 @@
   },
   "ctftime-3200": {
     "sent": [
-      "starts_7d"
+      "starts_7d",
+      "starts_3d"
     ]
   },
   "ctftime-3084": {
