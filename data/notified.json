@@ -173,5 +173,10 @@
     "sent": [
       "starts_tomorrow"
     ]
+  },
+  "ctftime-3096": {
+    "sent": [
+      "starts_7d"
+    ]
   }
 }
