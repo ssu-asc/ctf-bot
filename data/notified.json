@@ -174,7 +174,8 @@
   },
   "ctftime-3223": {
     "sent": [
-      "starts_tomorrow"
+      "starts_tomorrow",
+      "starts_1h"
     ]
   },
   "ctftime-3096": {

@@ -1,16 +1,6 @@
 {
-  "updated_at": "2026-03-28T14:29:41.458330+00:00",
+  "updated_at": "2026-03-28T15:28:19.648398+00:00",
   "events": [
-    {
-      "id": "kctf-2026-codegate",
-      "title": "2026 CODEGATE",
-      "start": "2026-03-28T00:00:00+09:00",
-      "finish": "2026-03-29T00:00:00+09:00",
-      "url": "http://k-ctf.org/contests/69b803a9c431b0b53a9042ff",
-      "format": "주최:HANCOM|운영:ENKI",
-      "weight": 0.0,
-      "source": "kctf"
-    },
     {
       "id": "kctf-2026-incognito-ctf",
       "title": "2026 INCOGNITO CTF",
@@ -18,6 +8,16 @@
       "finish": "2026-02-08T00:00:00+09:00",
       "url": "http://k-ctf.org/contests/69614a50c431b0b53a9041f5",
       "format": "주최:INCOGNITO|운영:INCOGNITO",
+      "weight": 0.0,
+      "source": "kctf"
+    },
+    {
+      "id": "kctf-2026-codegate",
+      "title": "2026 CODEGATE",
+      "start": "2026-03-28T00:00:00+09:00",
+      "finish": "2026-03-29T00:00:00+09:00",
+      "url": "http://k-ctf.org/contests/69b803a9c431b0b53a9042ff",
+      "format": "주최:HANCOM|운영:ENKI",
       "weight": 0.0,
       "source": "kctf"
     },
