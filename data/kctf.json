@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-03-29T21:28:49.583807+00:00",
+  "updated_at": "2026-03-29T22:27:57.340225+00:00",
   "events": [
     {
       "id": "kctf-2026-incognito-ctf",
@@ -22,8 +22,8 @@
       "source": "kctf"
     },
     {
-      "id": "kctf-2025-enki-redteam-ctf",
-      "title": "2025 ENKI Redteam CTF",
+      "id": "kctf-2026-enki-redteam-ctf",
+      "title": "2026 ENKI Redteam CTF",
       "start": "2026-03-21T00:00:00+09:00",
       "finish": "2026-03-22T00:00:00+09:00",
       "url": "http://k-ctf.org/contests/69a66c16c431b0b53a904232",
