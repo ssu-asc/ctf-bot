@@ -2,7 +2,7 @@
 """ASC 일정 알림 스크립트.
 
 Notion 캘린더에서 일정을 가져와,
-내일 시작하는 일정을 Discord Webhook으로 전송합니다.
+내일 시작하는 일정을 Discord 봇으로 전송합니다.
 
 Usage:
     python scripts/notify_schedule.py
@@ -11,7 +11,8 @@ Usage:
 Environment:
     NOTION_TOKEN - Notion Integration 토큰
     NOTION_DATABASE_ID - 캘린더 데이터베이스 ID
-    DISCORD_SCHEDULE_WEBHOOK_URL - 일정 알림용 Discord Webhook URL
+    DISCORD_BOT_TOKEN - Discord 봇 토큰
+    DISCORD_SCHEDULE_CHANNEL_ID - 일정 알림 채널 ID
 """
 
 from __future__ import annotations
@@ -60,20 +61,27 @@ def build_embed(events: list[fetch_notion.ScheduleEvent], target_date: date) -> 
     }
 
 
-def send_webhook(url: str, embed: dict) -> bool:
+def send_message(token: str, channel_id: str, embed: dict) -> bool:
+    """Discord Bot API로 메시지를 전송합니다."""
     try:
-        resp = httpx.post(url, json={"embeds": [embed]}, timeout=15)
+        resp = httpx.post(
+            f"https://discord.com/api/v10/channels/{channel_id}/messages",
+            headers={"Authorization": f"Bot {token}"},
+            json={"embeds": [embed]},
+            timeout=15,
+        )
         resp.raise_for_status()
         return True
     except httpx.HTTPError as e:
-        print(f"[Webhook] 전송 실패: {e}")
+        print(f"[Discord] 전송 실패: {e}")
         return False
 
 
 def main() -> int:
-    webhook_url = os.environ.get("DISCORD_SCHEDULE_WEBHOOK_URL")
-    if not webhook_url:
-        print("Error: DISCORD_SCHEDULE_WEBHOOK_URL 환경변수가 설정되지 않았습니다.")
+    bot_token = os.environ.get("DISCORD_BOT_TOKEN")
+    channel_id = os.environ.get("DISCORD_SCHEDULE_CHANNEL_ID")
+    if not bot_token or not channel_id:
+        print("Error: DISCORD_BOT_TOKEN 또는 DISCORD_SCHEDULE_CHANNEL_ID가 설정되지 않았습니다.")
         return 1
 
     test_mode = "--test" in sys.argv
@@ -95,7 +103,7 @@ def main() -> int:
             test_events = [e for e in future if e.start == future[0].start]
             embed = build_embed(test_events, future[0].start)
             embed["title"] = "\U0001f9ea 테스트: " + embed["title"]
-            send_webhook(webhook_url, embed)
+            send_message(bot_token, channel_id, embed)
             print(f"[TEST] {len(test_events)}개 일정 알림 전송")
         else:
             print("[TEST] 미래 일정 없음")
@@ -116,7 +124,7 @@ def main() -> int:
 
     # 하나의 Embed로 묶어서 전송
     embed = build_embed(unsent, tomorrow)
-    if send_webhook(webhook_url, embed):
+    if send_message(bot_token, channel_id, embed):
         sent_ids = state.get(date_key, [])
         sent_ids.extend(e.id for e in unsent)
         state[date_key] = sent_ids

@@ -30,7 +30,8 @@ jobs:
         env:
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
           NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
-          DISCORD_SCHEDULE_WEBHOOK_URL: ${{ secrets.DISCORD_SCHEDULE_WEBHOOK_URL }}
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+          DISCORD_SCHEDULE_CHANNEL_ID: ${{ secrets.DISCORD_SCHEDULE_CHANNEL_ID }}
         working-directory: scripts
         run: python notify_schedule.py ${{ github.event.inputs.test == 'true' && '--test' || '' }}
 
