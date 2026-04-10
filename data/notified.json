@@ -288,7 +288,8 @@
   },
   "ctftime-3230": {
     "sent": [
-      "starts_3d"
+      "starts_3d",
+      "starts_tomorrow"
     ]
   }
 }
