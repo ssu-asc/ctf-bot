@@ -292,5 +292,10 @@
       "starts_3d",
       "starts_tomorrow"
     ]
+  },
+  "ctftime-3077": {
+    "sent": [
+      "starts_7d"
+    ]
   }
 }
