@@ -1,6 +1,16 @@
 {
-  "updated_at": "2026-04-12T23:31:41.267904+00:00",
+  "updated_at": "2026-04-13T02:27:07.063413+00:00",
   "events": [
+    {
+      "id": "kctf-2026-핵테온-세종(hacktheon-sejong)-국제-대학생-사이버보안-경진대회",
+      "title": "2026 핵테온 세종(HackTheon Sejong) 국제 대학생 사이버보안 경진대회",
+      "start": "2026-04-25T00:00:00+09:00",
+      "finish": "2026-04-26T00:00:00+09:00",
+      "url": "http://k-ctf.org/contests/69db57d7c431b0b53a9043e7",
+      "format": "주최:세종특별자치시, 국가정보원",
+      "weight": 0.0,
+      "source": "kctf"
+    },
     {
       "id": "kctf-2026-incognito-ctf",
       "title": "2026 INCOGNITO CTF",
