@@ -357,12 +357,18 @@
   },
   "ctftime-3233": {
     "sent": [
-      "starts_3d"
+      "starts_3d",
+      "starts_tomorrow"
     ]
   },
   "ctftime-3143": {
     "sent": [
       "starts_tomorrow"
+    ]
+  },
+  "kctf-2026-핵테온-세종(hacktheon-sejong)-국제-대학생-사이버보안-경진대회": {
+    "sent": [
+      "starts_7d"
     ]
   }
 }
