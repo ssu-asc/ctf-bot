@@ -390,7 +390,8 @@
   },
   "ctftime-3250": {
     "sent": [
-      "starts_7d"
+      "starts_7d",
+      "starts_3d"
     ]
   },
   "kctf-cmux-x-aim-해커톤": {
