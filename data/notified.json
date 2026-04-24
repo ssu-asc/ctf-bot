@@ -406,10 +406,16 @@
   },
   "ctftime-3192": {
     "sent": [
-      "starts_3d"
+      "starts_3d",
+      "starts_tomorrow"
     ]
   },
   "ctftime-3168": {
+    "sent": [
+      "starts_7d"
+    ]
+  },
+  "ctftime-3177": {
     "sent": [
       "starts_7d"
     ]
