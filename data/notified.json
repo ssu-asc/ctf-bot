@@ -404,7 +404,8 @@
       "starts_7d",
       "starts_3d",
       "starts_tomorrow",
-      "starts_1h"
+      "starts_1h",
+      "starts_now"
     ]
   },
   "ctftime-3192": {
