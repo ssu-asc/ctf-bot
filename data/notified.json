@@ -272,7 +272,8 @@
   "ctftime-2773": {
     "sent": [
       "starts_7d",
-      "starts_3d"
+      "starts_3d",
+      "starts_tomorrow"
     ]
   },
   "ctftime-3202": {
@@ -446,6 +447,11 @@
     ]
   },
   "ctftime-3186": {
+    "sent": [
+      "starts_7d"
+    ]
+  },
+  "ctftime-3018": {
     "sent": [
       "starts_7d"
     ]
