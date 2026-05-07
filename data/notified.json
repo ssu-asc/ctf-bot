@@ -465,7 +465,8 @@
   "ctftime-3137": {
     "sent": [
       "starts_7d",
-      "starts_3d"
+      "starts_3d",
+      "starts_tomorrow"
     ]
   },
   "ctftime-3124": {
@@ -488,7 +489,8 @@
   },
   "ctftime-3090": {
     "sent": [
-      "starts_3d"
+      "starts_3d",
+      "starts_tomorrow"
     ]
   },
   "ctftime-3267": {
