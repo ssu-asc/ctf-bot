@@ -510,5 +510,15 @@
     "sent": [
       "starts_7d"
     ]
+  },
+  "ctftime-3283": {
+    "sent": [
+      "starts_tomorrow"
+    ]
+  },
+  "ctftime-3132": {
+    "sent": [
+      "starts_7d"
+    ]
   }
 }
