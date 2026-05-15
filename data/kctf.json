@@ -1,6 +1,16 @@
 {
-  "updated_at": "2026-05-15T21:56:51.933513+00:00",
+  "updated_at": "2026-05-15T22:55:37.193066+00:00",
   "events": [
+    {
+      "id": "kctf-dah-2026",
+      "title": "DAH 2026",
+      "start": "2026-06-15T00:00:00+09:00",
+      "finish": "2026-06-16T00:00:00+09:00",
+      "url": "http://k-ctf.org/contests/6a0797cac431b0b53a904417",
+      "format": "주최:LIG D&A|운영:LIG D&A",
+      "weight": 0.0,
+      "source": "kctf"
+    },
     {
       "id": "kctf-2026-핵테온-세종(hacktheon-sejong)-국제-대학생-사이버보안-경진대회",
       "title": "2026 핵테온 세종(HackTheon Sejong) 국제 대학생 사이버보안 경진대회",
