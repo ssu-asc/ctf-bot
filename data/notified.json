@@ -539,7 +539,8 @@
   "ctftime-3277": {
     "sent": [
       "starts_3d",
-      "starts_tomorrow"
+      "starts_tomorrow",
+      "starts_1h"
     ]
   },
   "ctftime-3214": {
