@@ -559,5 +559,10 @@
     "sent": [
       "starts_1h"
     ]
+  },
+  "ctftime-3270": {
+    "sent": [
+      "starts_7d"
+    ]
   }
 }
