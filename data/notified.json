@@ -600,5 +600,10 @@
     "sent": [
       "starts_tomorrow"
     ]
+  },
+  "ctftime-3041": {
+    "sent": [
+      "starts_7d"
+    ]
   }
 }
