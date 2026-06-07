@@ -42,6 +42,9 @@ wrangler secret put DISCORD_BOT_TOKEN
 wrangler secret put DISCORD_APPLICATION_ID
 ```
 
+`DISCORD_BOT_TOKEN`은 Discord Developer Portal의 Bot Token 값만 입력하세요.
+`Bot ` 접두어, Client Secret, Public Key, Webhook URL을 넣으면 Discord API 인증에 실패합니다.
+
 ### KV Namespace 생성
 
 ```bash

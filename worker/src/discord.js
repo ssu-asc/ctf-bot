@@ -4,6 +4,14 @@
 
 const DISCORD_API = "https://discord.com/api/v10";
 
+function botAuthorization(token) {
+  const value = String(token || "").trim();
+  if (!value) {
+    throw new Error("DISCORD_BOT_TOKEN secret is not set");
+  }
+  return value.toLowerCase().startsWith("bot ") ? value : `Bot ${value}`;
+}
+
 /**
  * Discord API 요청을 보냅니다.
  */
@@ -11,7 +19,7 @@ async function discordFetch(path, token, options = {}) {
   const resp = await fetch(`${DISCORD_API}${path}`, {
     ...options,
     headers: {
-      Authorization: `Bot ${token}`,
+      Authorization: botAuthorization(token),
       "Content-Type": "application/json",
       ...options.headers,
     },

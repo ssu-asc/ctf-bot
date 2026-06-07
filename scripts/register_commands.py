@@ -20,6 +20,11 @@ import httpx
 DISCORD_API = "https://discord.com/api/v10"
 
 
+def bot_authorization(token: str) -> str:
+    token = token.strip()
+    return token if token.lower().startswith("bot ") else f"Bot {token}"
+
+
 COMMANDS = [
     {
         "name": "newctf",
@@ -115,7 +120,7 @@ def main() -> int:
         return 1
 
     url = f"{DISCORD_API}/applications/{app_id}/commands"
-    headers = {"Authorization": f"Bot {bot_token}"}
+    headers = {"Authorization": bot_authorization(bot_token)}
 
     for cmd in COMMANDS:
         try:
