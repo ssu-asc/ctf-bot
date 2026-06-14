@@ -644,7 +644,8 @@
     "sent": [
       "starts_7d",
       "starts_tomorrow",
-      "starts_1h"
+      "starts_1h",
+      "starts_now"
     ]
   },
   "ctftime-3272": {
