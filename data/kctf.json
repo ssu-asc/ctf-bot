@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-06-15T10:23:18.120792+00:00",
+  "updated_at": "2026-06-15T16:15:05.149314+00:00",
   "events": [
     {
       "id": "kctf-dah-2026",
@@ -28,6 +28,26 @@
       "finish": "2026-03-29T00:00:00+09:00",
       "url": "http://k-ctf.org/contests/69b803a9c431b0b53a9042ff",
       "format": "주최:HANCOM|운영:ENKI",
+      "weight": 0.0,
+      "source": "kctf"
+    },
+    {
+      "id": "kctf-2026-사이버가디언즈-cmx-대회",
+      "title": "2026 사이버가디언즈 CMX 대회",
+      "start": "2026-08-08T00:00:00+09:00",
+      "finish": "2026-08-09T00:00:00+09:00",
+      "url": "http://k-ctf.org/contests/6a2679dcc431b0b53a90442f",
+      "format": "주최:과학기술정보통신부|운영:PetoWorks",
+      "weight": 0.0,
+      "source": "kctf"
+    },
+    {
+      "id": "kctf-2026-kisia-ctf",
+      "title": "2026 KISIA CTF",
+      "start": "2026-08-09T00:00:00+09:00",
+      "finish": "2026-08-10T00:00:00+09:00",
+      "url": "http://k-ctf.org/contests/6a2678cac431b0b53a90442e",
+      "format": "주최:과학기술정보통신부|운영:PetoWorks",
       "weight": 0.0,
       "source": "kctf"
     },
