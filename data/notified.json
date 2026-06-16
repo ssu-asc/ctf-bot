@@ -668,5 +668,10 @@
     "sent": [
       "starts_1h"
     ]
+  },
+  "ctftime-3246": {
+    "sent": [
+      "starts_3d"
+    ]
   }
 }
