@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-06-18T03:36:50.327543+00:00",
+  "updated_at": "2026-06-18T08:42:30.927632+00:00",
   "events": [
     {
       "id": "kctf-dah-2026",
@@ -18,6 +18,16 @@
       "finish": "2026-04-26T00:00:00+09:00",
       "url": "http://k-ctf.org/contests/69db57d7c431b0b53a9043e7",
       "format": "주최:세종특별자치시, 국가정보원",
+      "weight": 0.0,
+      "source": "kctf"
+    },
+    {
+      "id": "kctf-2026-아주대학교-coss-청소년-사이버-해킹방어대회",
+      "title": "2026 아주대학교 COSS 청소년 사이버 해킹방어대회",
+      "start": "2026-07-11T00:00:00+09:00",
+      "finish": "2026-07-12T00:00:00+09:00",
+      "url": "http://k-ctf.org/contests/6a3228dbc431b0b53a904437",
+      "format": "주최:아주대학교|운영:PetoWorks",
       "weight": 0.0,
       "source": "kctf"
     },
