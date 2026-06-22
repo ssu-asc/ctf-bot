@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-06-22T06:25:51.308558+00:00",
+  "updated_at": "2026-06-22T12:47:03.982673+00:00",
   "events": [
     {
       "id": "kctf-dah-2026",
@@ -58,6 +58,16 @@
       "finish": "2026-08-10T00:00:00+09:00",
       "url": "http://k-ctf.org/contests/6a2678cac431b0b53a90442e",
       "format": "주최:과학기술정보통신부|운영:PetoWorks",
+      "weight": 0.0,
+      "source": "kctf"
+    },
+    {
+      "id": "kctf-제-7회-jbu-ctf",
+      "title": "제 7회 JBU-CTF",
+      "start": "2026-09-04T00:00:00+09:00",
+      "finish": "2026-09-05T00:00:00+09:00",
+      "url": "http://k-ctf.org/contests/6a38e001c431b0b53a90444b",
+      "format": "주최:중부대학교 정보보호학전공|운영:정보보안 동아리 S.C.P",
       "weight": 0.0,
       "source": "kctf"
     },
