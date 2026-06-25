@@ -695,5 +695,10 @@
     "sent": [
       "starts_3d"
     ]
+  },
+  "ctftime-3323": {
+    "sent": [
+      "starts_tomorrow"
+    ]
   }
 }
