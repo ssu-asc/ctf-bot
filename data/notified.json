@@ -702,5 +702,10 @@
     "sent": [
       "starts_tomorrow"
     ]
+  },
+  "ctftime-3315": {
+    "sent": [
+      "starts_7d"
+    ]
   }
 }
