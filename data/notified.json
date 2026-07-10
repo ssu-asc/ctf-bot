@@ -759,5 +759,10 @@
     "sent": [
       "starts_tomorrow"
     ]
+  },
+  "ctftime-3353": {
+    "sent": [
+      "starts_7d"
+    ]
   }
 }
