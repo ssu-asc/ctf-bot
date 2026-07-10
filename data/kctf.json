@@ -1,16 +1,6 @@
 {
-  "updated_at": "2026-07-10T14:16:04.407546+00:00",
+  "updated_at": "2026-07-10T16:52:54.924518+00:00",
   "events": [
-    {
-      "id": "kctf-dah-2026",
-      "title": "DAH 2026",
-      "start": "2026-06-15T00:00:00+09:00",
-      "finish": "2026-06-16T00:00:00+09:00",
-      "url": "http://k-ctf.org/contests/6a0797cac431b0b53a904417",
-      "format": "주최:LIG D&A|운영:LIG D&A",
-      "weight": 0.0,
-      "source": "kctf"
-    },
     {
       "id": "kctf-2026-아주대학교-coss-청소년-사이버-해킹방어대회",
       "title": "2026 아주대학교 COSS 청소년 사이버 해킹방어대회",
@@ -58,6 +48,16 @@
       "finish": "2026-08-10T00:00:00+09:00",
       "url": "http://k-ctf.org/contests/6a2678cac431b0b53a90442e",
       "format": "주최:과학기술정보통신부|운영:PetoWorks",
+      "weight": 0.0,
+      "source": "kctf"
+    },
+    {
+      "id": "kctf-dah-2026",
+      "title": "DAH 2026",
+      "start": "2026-06-15T00:00:00+09:00",
+      "finish": "2026-06-16T00:00:00+09:00",
+      "url": "http://k-ctf.org/contests/6a0797cac431b0b53a904417",
+      "format": "주최:LIG D&A|운영:LIG D&A",
       "weight": 0.0,
       "source": "kctf"
     },
