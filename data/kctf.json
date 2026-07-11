@@ -1,16 +1,6 @@
 {
-  "updated_at": "2026-07-11T07:49:44.645966+00:00",
+  "updated_at": "2026-07-11T09:24:52.114829+00:00",
   "events": [
-    {
-      "id": "kctf-2026-아주대학교-coss-청소년-사이버-해킹방어대회",
-      "title": "2026 아주대학교 COSS 청소년 사이버 해킹방어대회",
-      "start": "2026-07-11T00:00:00+09:00",
-      "finish": "2026-07-12T00:00:00+09:00",
-      "url": "http://k-ctf.org/contests/6a3228dbc431b0b53a904437",
-      "format": "주최:아주대학교|운영:PetoWorks",
-      "weight": 0.0,
-      "source": "kctf"
-    },
     {
       "id": "kctf-2026-sca-ctf",
       "title": "2026 SCA CTF",
@@ -28,6 +18,16 @@
       "finish": "2026-03-29T00:00:00+09:00",
       "url": "http://k-ctf.org/contests/69b803a9c431b0b53a9042ff",
       "format": "주최:HANCOM|운영:ENKI",
+      "weight": 0.0,
+      "source": "kctf"
+    },
+    {
+      "id": "kctf-2026-아주대학교-coss-청소년-사이버-해킹방어대회",
+      "title": "2026 아주대학교 COSS 청소년 사이버 해킹방어대회",
+      "start": "2026-07-11T00:00:00+09:00",
+      "finish": "2026-07-12T00:00:00+09:00",
+      "url": "http://k-ctf.org/contests/6a3228dbc431b0b53a904437",
+      "format": "주최:아주대학교|운영:PetoWorks",
       "weight": 0.0,
       "source": "kctf"
     },
