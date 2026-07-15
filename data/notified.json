@@ -798,7 +798,8 @@
   },
   "ctftime-3324": {
     "sent": [
-      "starts_7d"
+      "starts_7d",
+      "starts_3d"
     ]
   },
   "kctf-2026-sca-ctf": {
