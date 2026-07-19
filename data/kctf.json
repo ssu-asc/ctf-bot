@@ -1,16 +1,6 @@
 {
-  "updated_at": "2026-07-19T08:10:37.647936+00:00",
+  "updated_at": "2026-07-19T10:24:09.224480+00:00",
   "events": [
-    {
-      "id": "kctf-2026-sca-ctf",
-      "title": "2026 SCA CTF",
-      "start": "2026-07-19T00:00:00+09:00",
-      "finish": "2026-07-20T00:00:00+09:00",
-      "url": "http://k-ctf.org/contests/6a48c667c431b0b53a904461",
-      "format": "주최:세명컴퓨터고등학교 SCA",
-      "weight": 0.0,
-      "source": "kctf"
-    },
     {
       "id": "kctf-2026-codegate",
       "title": "2026 CODEGATE",
@@ -72,6 +62,16 @@
       "source": "kctf"
     },
     {
+      "id": "kctf-2026-sca-ctf",
+      "title": "2026 SCA CTF",
+      "start": "2026-07-19T00:00:00+09:00",
+      "finish": "2026-07-20T00:00:00+09:00",
+      "url": "http://k-ctf.org/contests/6a48c667c431b0b53a904461",
+      "format": "주최:세명컴퓨터고등학교 SCA",
+      "weight": 0.0,
+      "source": "kctf"
+    },
+    {
       "id": "kctf-2026-핵테온-세종(hacktheon-sejong)-국제-대학생-사이버보안-경진대회",
       "title": "2026 핵테온 세종(HackTheon Sejong) 국제 대학생 사이버보안 경진대회",
       "start": "2026-04-25T00:00:00+09:00",
@@ -98,16 +98,6 @@
       "finish": "2026-04-27T00:00:00+09:00",
       "url": "http://k-ctf.org/contests/69dde2b6c431b0b53a9043ed",
       "format": "주최:AI Nexus",
-      "weight": 0.0,
-      "source": "kctf"
-    },
-    {
-      "id": "kctf-2026-enki-redteam-ctf",
-      "title": "2026 ENKI Redteam CTF",
-      "start": "2026-03-21T00:00:00+09:00",
-      "finish": "2026-03-22T00:00:00+09:00",
-      "url": "http://k-ctf.org/contests/69a66c16c431b0b53a904232",
-      "format": "주최:ENKI|운영:ENKI",
       "weight": 0.0,
       "source": "kctf"
     }
