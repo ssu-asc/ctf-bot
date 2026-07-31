@@ -865,7 +865,8 @@
   },
   "ctftime-3237": {
     "sent": [
-      "starts_7d"
+      "starts_7d",
+      "starts_tomorrow"
     ]
   },
   "ctftime-3373": {
