@@ -924,5 +924,10 @@
     "sent": [
       "starts_7d"
     ]
+  },
+  "ctftime-3328": {
+    "sent": [
+      "starts_tomorrow"
+    ]
   }
 }
