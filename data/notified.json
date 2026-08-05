@@ -914,12 +914,14 @@
   },
   "ctftime-3052": {
     "sent": [
-      "starts_7d"
+      "starts_7d",
+      "starts_3d"
     ]
   },
   "ctftime-3148": {
     "sent": [
-      "starts_7d"
+      "starts_7d",
+      "starts_3d"
     ]
   },
   "kctf-2026-kisia-ctf": {
