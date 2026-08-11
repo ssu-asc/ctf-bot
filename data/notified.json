@@ -961,12 +961,14 @@
   },
   "ctftime-3318": {
     "sent": [
-      "starts_7d"
+      "starts_7d",
+      "starts_3d"
     ]
   },
   "ctftime-3343": {
     "sent": [
-      "starts_7d"
+      "starts_7d",
+      "starts_3d"
     ]
   },
   "ctftime-3387": {
