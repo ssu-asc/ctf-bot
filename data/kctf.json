@@ -1,4 +1,65 @@
 {
-  "updated_at": "2026-08-19T03:43:18.033462+00:00",
-  "events": []
+  "updated_at": "2026-08-19T04:32:33.431467+00:00",
+  "events": [
+    {
+      "id": "kctf-dah-2026",
+      "title": "DAH 2026",
+      "start": "2026-06-15T00:00:00+09:00",
+      "finish": "2026-06-16T00:00:00+09:00",
+      "url": "http://k-ctf.org/contests/6a0797cac431b0b53a904417",
+      "format": "주최:LIG D&A|운영:LIG D&A",
+      "weight": 0.0,
+      "source": "kctf"
+    },
+    {
+      "id": "kctf-제-7회-jbu-ctf",
+      "title": "제 7회 JBU-CTF",
+      "start": "2026-09-04T00:00:00+09:00",
+      "finish": "2026-09-05T00:00:00+09:00",
+      "url": "http://k-ctf.org/contests/6a38e001c431b0b53a90444b",
+      "format": "주최:중부대학교 정보보호학전공|운영:정보보안 동아리 S.C.P",
+      "weight": 0.0,
+      "source": "kctf"
+    },
+    {
+      "id": "kctf-2026-kisia-ctf",
+      "title": "2026 KISIA CTF",
+      "start": "2026-08-09T00:00:00+09:00",
+      "finish": "2026-08-10T00:00:00+09:00",
+      "url": "http://k-ctf.org/contests/6a2678cac431b0b53a90442e",
+      "format": "주최:과학기술정보통신부|운영:PetoWorks",
+      "weight": 0.0,
+      "source": "kctf"
+    },
+    {
+      "id": "kctf-2026-사이버가디언즈-cmx-대회",
+      "title": "2026 사이버가디언즈 CMX 대회",
+      "start": "2026-08-08T00:00:00+09:00",
+      "finish": "2026-08-09T00:00:00+09:00",
+      "url": "http://k-ctf.org/contests/6a2679dcc431b0b53a90442f",
+      "format": "주최:과학기술정보통신부|운영:PetoWorks",
+      "weight": 0.0,
+      "source": "kctf"
+    },
+    {
+      "id": "kctf-2026-아주대학교-coss-청소년-사이버-해킹방어대회",
+      "title": "2026 아주대학교 COSS 청소년 사이버 해킹방어대회",
+      "start": "2026-07-11T00:00:00+09:00",
+      "finish": "2026-07-12T00:00:00+09:00",
+      "url": "http://k-ctf.org/contests/6a3228dbc431b0b53a904437",
+      "format": "주최:아주대학교|운영:PetoWorks",
+      "weight": 0.0,
+      "source": "kctf"
+    },
+    {
+      "id": "kctf-2026-codegate",
+      "title": "2026 CODEGATE",
+      "start": "2026-03-28T00:00:00+09:00",
+      "finish": "2026-03-29T00:00:00+09:00",
+      "url": "http://k-ctf.org/contests/69b803a9c431b0b53a9042ff",
+      "format": "주최:HANCOM|운영:ENKI",
+      "weight": 0.0,
+      "source": "kctf"
+    }
+  ]
 }
