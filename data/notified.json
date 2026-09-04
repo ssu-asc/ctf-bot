@@ -1097,7 +1097,8 @@
   "ctftime-3389": {
     "sent": [
       "starts_7d",
-      "starts_3d"
+      "starts_3d",
+      "starts_tomorrow"
     ]
   },
   "kctf-제-7회-jbu-ctf": {
