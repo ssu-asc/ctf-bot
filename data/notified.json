@@ -1113,7 +1113,8 @@
   },
   "ctftime-3145": {
     "sent": [
-      "starts_7d"
+      "starts_7d",
+      "starts_tomorrow"
     ]
   },
   "ctftime-3265": {
