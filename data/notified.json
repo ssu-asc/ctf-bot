@@ -1149,5 +1149,15 @@
     "sent": [
       "starts_3d"
     ]
+  },
+  "ctftime-3326": {
+    "sent": [
+      "starts_tomorrow"
+    ]
+  },
+  "ctftime-3428": {
+    "sent": [
+      "starts_tomorrow"
+    ]
   }
 }
