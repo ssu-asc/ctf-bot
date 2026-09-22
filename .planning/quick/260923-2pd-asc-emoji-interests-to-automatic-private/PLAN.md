@@ -1,5 +1,5 @@
 ---
-status: in-progress
+status: complete
 ---
 
 # Automatic project interest rooms
