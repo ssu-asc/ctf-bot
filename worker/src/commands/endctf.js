@@ -1,9 +1,12 @@
 /**
- * /endctf <name> - CTF를 종료하고 아카이브합니다.
+ * /endctf [name] - CTF를 종료하고 아카이브합니다.
+ *
+ * name 생략 시 현재 채널(general 등)로 CTF를 자동 판별합니다.
  *
  * Returns: string (followup 메시지 내용)
  */
 
+import { findCtfByChannel } from "./chall.js";
 import {
   listCategories,
   countChannelsInCategory,
@@ -52,16 +55,48 @@ async function resolveArchiveCategory(guildId, token) {
 
 export async function handleEndCtf(interaction, env) {
   const guildId = interaction.guild_id;
-  const ctfName = interaction.data.options.find((o) => o.name === "name").value;
+  const channelId = interaction.channel_id;
   const token = env.DISCORD_BOT_TOKEN;
   const kv = env.CTF_STATE;
 
-  const key = `ctf:${guildId}:${ctfName}`;
-  const ctfState = await kv.get(key, "json");
+  const nameOpt = interaction.data.options?.find((o) => o.name === "name");
+  const inputName = nameOpt?.value;
 
-  if (!ctfState) {
-    return `\u26a0\ufe0f **${ctfName}** CTF를 찾을 수 없습니다.`;
+  let key;
+  let ctfState;
+
+  if (inputName) {
+    // 이름이 주어지면 정확히 일치하는 키를 먼저 찾고, 없으면 대소문자 무시로 재탐색
+    key = `ctf:${guildId}:${inputName}`;
+    ctfState = await kv.get(key, "json");
+
+    if (!ctfState) {
+      const prefix = `ctf:${guildId}:`;
+      const listed = await kv.list({ prefix });
+      const target = inputName.toLowerCase();
+      const match = listed.keys.find(
+        (k) => k.name.slice(prefix.length).toLowerCase() === target
+      );
+      if (match) {
+        key = match.name;
+        ctfState = await kv.get(key, "json");
+      }
+    }
+
+    if (!ctfState) {
+      return `\u26a0\ufe0f **${inputName}** CTF를 찾을 수 없습니다.`;
+    }
+  } else {
+    // 이름 생략 시 현재 채널로 판별
+    const found = await findCtfByChannel(guildId, channelId, kv, token);
+    if (!found) {
+      return "\u26a0\ufe0f CTF 채널에서 실행하거나 CTF 이름을 지정해주세요.";
+    }
+    key = found.key;
+    ctfState = found.state;
   }
+
+  const ctfName = ctfState.name;
   if (ctfState.archived) {
     return `\u{1f4e6} **${ctfName}**은(는) 이미 아카이브되었습니다.`;
   }

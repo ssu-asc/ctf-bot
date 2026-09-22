@@ -102,9 +102,9 @@ COMMANDS = [
         "options": [
             {
                 "name": "name",
-                "description": "CTF 이름",
+                "description": "CTF 이름 (생략 시 현재 채널 기준)",
                 "type": 3,
-                "required": True,
+                "required": False,
             }
         ],
     },
