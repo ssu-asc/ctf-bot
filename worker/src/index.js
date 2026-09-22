@@ -12,6 +12,8 @@ import { handleSolve } from "./commands/solve.js";
 import { handleUpcoming } from "./commands/upcoming.js";
 import { handleKorean } from "./commands/korean.js";
 import { handleEndCtf } from "./commands/endctf.js";
+import { scheduledInterests } from "./interests.js";
+export { InterestCoordinator } from "./interests.js";
 
 const DISCORD_API = "https://discord.com/api/v10";
 
@@ -19,6 +21,9 @@ const DISCORD_API = "https://discord.com/api/v10";
 const DEFERRED_COMMANDS = new Set(["newctf", "endctf", "chall", "solve", "unsolve"]);
 
 export default {
+  async scheduled(event, env, ctx) {
+    ctx.waitUntil(scheduledInterests(env));
+  },
   async fetch(request, env, ctx) {
     if (request.method !== "POST") {
       return new Response("Method Not Allowed", { status: 405 });

@@ -3,6 +3,7 @@ main = "src/index.js"
 compatibility_date = "2024-01-01"
 
 [vars]
+INTEREST_ROOMS_ENABLED = "true"
 # DISCORD_PUBLIC_KEY, DISCORD_BOT_TOKEN, DISCORD_APPLICATION_ID
 # -> wrangler secret put 으로 설정
 
@@ -10,3 +11,14 @@ compatibility_date = "2024-01-01"
 binding = "CTF_STATE"
 id = "63e25ca7effd49168a679f120e9d83dc"        # wrangler kv namespace create CTF_STATE 후 교체
 preview_id = "c6458e694de5419a9a179f0b0c243afb"  # wrangler kv namespace create CTF_STATE --preview 후 교체
+
+[triggers]
+crons = ["* * * * *"]
+
+[[durable_objects.bindings]]
+name = "INTEREST_COORDINATOR"
+class_name = "InterestCoordinator"
+
+[[migrations]]
+tag = "interest-rooms-v1"
+new_sqlite_classes = ["InterestCoordinator"]
