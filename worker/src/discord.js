@@ -38,6 +38,22 @@ async function discordFetch(path, token, options = {}) {
 /**
  * 길드의 카테고리 채널을 이름으로 찾습니다.
  */
+/**
+ * 길드의 모든 카테고리 채널을 반환합니다.
+ */
+export async function listCategories(guildId, token) {
+  const channels = await discordFetch(`/guilds/${guildId}/channels`, token);
+  return channels.filter((ch) => ch.type === 4);
+}
+
+/**
+ * 카테고리에 속한 채널 수를 셉니다.
+ */
+export async function countChannelsInCategory(guildId, categoryId, token) {
+  const channels = await discordFetch(`/guilds/${guildId}/channels`, token);
+  return channels.filter((ch) => ch.parent_id === categoryId).length;
+}
+
 export async function findCategory(guildId, name, token) {
   const channels = await discordFetch(`/guilds/${guildId}/channels`, token);
   return channels.find(

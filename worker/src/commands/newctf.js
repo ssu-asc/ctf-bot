@@ -1,7 +1,7 @@
 /**
  * /newctf <name> - 새 CTF 환경을 생성합니다.
  *
- * 1. "CTF" 카테고리 확인/생성
+ * 1. "04 CTF" 카테고리 확인/생성
  * 2. 포럼 채널 생성 (unsolved, solved, discussion 태그 포함)
  * 3. "general" 포스트 자동 생성 + 상태 메시지 핀
  * 4. 음성 채널 생성
@@ -18,6 +18,9 @@ import {
   createVoiceChannel,
   pinMessage,
 } from "../discord.js";
+
+/** CTF 채널이 생성될 카테고리 이름 */
+const CTF_CATEGORY = "04 CTF";
 
 /** 포럼 태그 기본 설정 */
 const FORUM_TAGS = [
@@ -40,9 +43,9 @@ export async function handleNewCtf(interaction, env) {
   }
 
   // 1. CTF 카테고리 확인/생성 (항상 서버에서 확인)
-  let category = await findCategory(guildId, "CTF", token);
+  let category = await findCategory(guildId, CTF_CATEGORY, token);
   if (!category) {
-    category = await createCategory(guildId, "CTF", token);
+    category = await createCategory(guildId, CTF_CATEGORY, token);
   }
   const categoryId = category.id;
   await kv.put(`category:${guildId}`, categoryId);
