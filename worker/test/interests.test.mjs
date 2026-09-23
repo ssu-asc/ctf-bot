@@ -100,6 +100,21 @@ test('multiple fields each get one private room and zero-permission role; repeat
   assert.equal(f.mutations.length, before);
 });
 
+test('AI uses a lower-case channel name and recovers its existing room without duplicates', async () => {
+  const ai = INTEREST_CONFIG.fields.find(field => field.key === 'ai');
+  assert.ok(ai);
+  const f = fixture({ ...INTEREST_CONFIG, fields: [ai] });
+  f.select('u1'); await syncInterests(f.api, f.storage, f.config);
+  assert.equal(f.channels[1].name, '관심-ai');
+  const state = f.values.get('ai');
+  delete state.channelId; delete state.welcomeId; delete state.copyVersion;
+  const before = f.mutations.length;
+  await syncInterests(f.api, f.storage, f.config);
+  assert.equal(f.channels.length, 2); assert.equal(f.roles.length, 1);
+  assert.equal([...f.messages.values()].flat().length, 1);
+  assert.equal(f.mutations.length, before);
+});
+
 test('copy migration edits tracked welcomes once, keeps message IDs and preserves manually edited topics', async () => {
   const f = fixture(); f.select('u1'); await syncInterests(f.api, f.storage, f.config);
   for (const field of f.config.fields) {

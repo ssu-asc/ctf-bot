@@ -12,6 +12,7 @@ export const INTEREST_CONFIG = {
     { key: "rev", name: "리버싱", emoji: "🧩" },
     { key: "crypto", name: "암호학", emoji: "🔐" },
     { key: "forensic", name: "포렌식", emoji: "🔎" },
+    { key: "ai", name: "AI", emoji: "🤖" },
     { key: "other", name: "기타", emoji: "💡" },
   ],
 };
@@ -110,7 +111,7 @@ async function ensureRoom(api, storage, config, field, state, roles, channels) {
   if (state.channelId) {
     if (!privateRoom(channels.find(c => c.id === state.channelId), config, state.roleId)) throw new Error(`Stored ${field.key} room is missing or privacy has changed`);
   } else {
-    const name = `관심-${field.name}`;
+    const name = `관심-${field.name}`.toLowerCase();
     const matches = channels.filter(c => c.name === name && c.parent_id === config.categoryId);
     if (matches.length > 1 || (matches.length === 1 && !privateRoom(matches[0], config, state.roleId))) throw new Error(`Ambiguous ${field.key} room`);
     const channel = matches[0] || await api(`/guilds/${config.guildId}/channels`, {
