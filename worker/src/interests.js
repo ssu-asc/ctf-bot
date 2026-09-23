@@ -92,9 +92,9 @@ function privateRoom(channel, config, roleId) {
 
 async function ensureRoom(api, storage, config, field, state, roles, channels) {
   const roleName = `2026-2 관심 · ${field.name}`;
-  const topic = `${field.emoji} ${field.name}에 관심 있는 멤버들이 주제를 제안하고 팀을 찾는 곳입니다. 팀은 2~3명 권장, 최대 4명이며 PM 1명을 정해 주시기 바랍니다.`;
+  const topic = `${field.emoji} ${field.name}에 관심 있는 멤버들이 주제를 제안하고 팀을 찾는 곳입니다. 팀은 2~3명 권장, 최대 4명이며 PM 1명을 정해주세요.`;
   const title = `# ${field.name} 프로젝트 이야기`;
-  const content = `${title}\n${field.name}에 관심 있는 분들이 모인 공간입니다. 해보고 싶은 일이나 궁금한 점부터 편하게 이야기해 주시기 바랍니다. 운영진도 프로젝트 후보를 함께 나눌 예정입니다.\n\n## 팀을 꾸릴 때\n- 마음이 맞는 분들과 **2~3명 권장, 최대 4명**으로 팀을 구성하고 **PM 1명**을 정해 주시기 바랍니다.\n- 구체적인 주제 제안과 추가 팀원 모집은 <#1551975502233993289>에 올려 주시기 바랍니다.\n- 팀 전용 채널이나 매칭이 필요하면 <#1551981136295624704>로 문의해 주시기 바랍니다.\n\n활동 일정과 제출 방법은 <#1551975266929213440>에서 확인할 수 있습니다.`;
+  const content = `${title}\n${field.name}에 관심 있는 분들이 모인 공간입니다. 해보고 싶은 일이나 궁금한 점부터 편하게 이야기해주세요. 운영진도 프로젝트 후보를 함께 나눌 예정입니다.\n\n## 팀을 꾸릴 때\n- 마음이 맞는 분들과 **2~3명 권장, 최대 4명**으로 팀을 구성하고 **PM 1명**을 정해주세요.\n- 구체적인 주제 제안과 추가 팀원 모집은 <#1551975502233993289>에 올려주세요.\n- 팀 전용 채널이나 매칭이 필요하면 <#1551981136295624704>로 문의해주세요.\n\n활동 일정과 제출 방법은 <#1551975266929213440>에서 확인할 수 있습니다.`;
   if (state.roleId) {
     if (!safeRole(roles.find(r => r.id === state.roleId))) throw new Error(`Stored ${field.key} role is missing or has changed permissions`);
   } else {
@@ -146,16 +146,16 @@ async function ensureRoom(api, storage, config, field, state, roles, channels) {
   }
   // Update only the tracked bot welcome and the original generated topic.
   // Discord enforces message ownership; never replace a manually edited topic.
-  if (state.copyVersion !== 2) {
+  if (state.copyVersion !== 3) {
     const welcome = await api(`/channels/${state.channelId}/messages/${state.welcomeId}`);
     if (!welcome.author?.bot || !welcome.content?.startsWith(title)) throw new Error(`Stored ${field.key} welcome has changed`);
     if (welcome.content !== content) await api(`/channels/${state.channelId}/messages/${state.welcomeId}`, {
       method: "PATCH", body: JSON.stringify({ content, allowed_mentions: { parse: [] } }),
     });
     const room = channels.find(c => c.id === state.channelId);
-    const oldTopic = `${field.emoji} ${field.name}에 관심 있는 멤버들이 주제를 제안하고 팀을 찾는 곳입니다. 팀은 2~3명 권장, 최대 4명이며 PM 1명을 정해주세요.`;
+    const oldTopic = `${field.emoji} ${field.name}에 관심 있는 멤버들이 주제를 제안하고 팀을 찾는 곳입니다. 팀은 2~3명 권장, 최대 4명이며 PM 1명을 정해 주시기 바랍니다.`;
     if (room.topic === oldTopic) await api(`/channels/${state.channelId}`, { method: "PATCH", body: JSON.stringify({ topic }) });
-    state.copyVersion = 2;
+    state.copyVersion = 3;
     await storage.put(field.key, state);
   }
 }

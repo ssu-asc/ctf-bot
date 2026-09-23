@@ -118,11 +118,11 @@ test('AI uses a lower-case channel name and recovers its existing room without d
 test('copy migration edits tracked welcomes once, keeps message IDs and preserves manually edited topics', async () => {
   const f = fixture(); f.select('u1'); await syncInterests(f.api, f.storage, f.config);
   for (const field of f.config.fields) {
-    const state = f.values.get(field.key); delete state.copyVersion;
+    const state = f.values.get(field.key); state.copyVersion = 2;
     const msg = f.messages.get(state.channelId).find(m => m.id === state.welcomeId);
     msg.content = `# ${field.name} 프로젝트 이야기\n이전에 게시된 안내예요.`;
     f.channels.find(c => c.id === state.channelId).topic = field.key === 'web'
-      ? `${field.emoji} ${field.name}에 관심 있는 멤버들이 주제를 제안하고 팀을 찾는 곳입니다. 팀은 2~3명 권장, 최대 4명이며 PM 1명을 정해주세요.`
+      ? `${field.emoji} ${field.name}에 관심 있는 멤버들이 주제를 제안하고 팀을 찾는 곳입니다. 팀은 2~3명 권장, 최대 4명이며 PM 1명을 정해 주시기 바랍니다.`
       : '운영진이 직접 정한 채널 설명';
   }
   const ids = [...f.messages.values()].flat().map(m => m.id);
@@ -131,7 +131,7 @@ test('copy migration edits tracked welcomes once, keeps message IDs and preserve
   assert.deepEqual([...f.messages.values()].flat().map(m => m.id), ids);
   assert.equal(f.mutations.slice(before).filter(m => m.method === 'PATCH' && m.path.includes('/messages/')).length, 2);
   assert.ok([...f.messages.values()].flat().every(m => m.content.includes('공간입니다.') && !m.content.includes('예요.')));
-  assert.ok(f.channels[1].topic.endsWith('정해 주시기 바랍니다.'));
+  assert.ok(f.channels[1].topic.endsWith('정해주세요.'));
   assert.equal(f.channels[2].topic, '운영진이 직접 정한 채널 설명');
   const after = f.mutations.length; await syncInterests(f.api, f.storage, f.config);
   assert.equal(f.mutations.length, after);
