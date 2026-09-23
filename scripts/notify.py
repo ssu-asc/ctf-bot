@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """CTF 알림 메인 스크립트.
 
-두 소스(CTFtime, K-CTF)에서 이벤트를 수집하고,
+K-CTF에서 국내 CTF 이벤트를 수집하고,
 알림 조건에 해당하는 이벤트를 Discord Webhook으로 전송합니다.
 
 Usage:
@@ -21,7 +21,6 @@ from pathlib import Path
 
 import httpx
 
-import fetch_ctftime
 import scrape_kctf
 import state
 from models import CTFEvent
@@ -85,10 +84,8 @@ def build_embed(event: CTFEvent, emoji: str, label: str) -> dict:
         description_parts.append(f"\u2696\ufe0f {event.weight:.2f}")
     description_parts.append(f"\U0001f517 {event.url}")
 
-    source_label = "[K-CTF]" if event.source == "kctf" else ""
-
     return {
-        "title": f"{emoji} {label}: {event.title} {source_label}".strip(),
+        "title": f"{emoji} {label}: {event.title}",
         "description": "\n".join(description_parts),
         "color": 0x00D166 if "시작" in label else 0xFEE75C,
         "thumbnail": {"url": event.logo_url} if event.logo_url else None,
@@ -116,12 +113,9 @@ def main() -> int:
     now = datetime.now(tz=timezone.utc)
     test_mode = "--test" in sys.argv
 
-    # 이벤트 수집
-    events: list[CTFEvent] = []
-    events.extend(fetch_ctftime.fetch())
-
+    # 이벤트 수집 (K-CTF만)
     kctf_events = scrape_kctf.fetch()
-    events.extend(kctf_events)
+    events: list[CTFEvent] = list(kctf_events)
 
     # K-CTF 결과를 캐시 파일에 저장 (/korean 커맨드용)
     _save_kctf_cache(kctf_events)
