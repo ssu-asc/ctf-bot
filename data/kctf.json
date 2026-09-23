@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-23T01:13:41.978549+00:00",
+  "updated_at": "2026-09-23T07:17:17.300815+00:00",
   "events": [
     {
       "id": "kctf-2026-제2회-영남권-사이버-공격-방어-대회",
@@ -8,6 +8,16 @@
       "finish": "2026-10-15T00:00:00+09:00",
       "url": "http://k-ctf.org/contests/6aaba42311c4d10a2394911e",
       "format": "주최:국가정보원 외 7",
+      "weight": 0.0,
+      "source": "kctf"
+    },
+    {
+      "id": "kctf-2026-eleccon",
+      "title": "2026 ELECCON",
+      "start": "2026-10-22T00:00:00+09:00",
+      "finish": "2026-10-23T00:00:00+09:00",
+      "url": "http://k-ctf.org/contests/6ab33df611c4d10a23949148",
+      "format": "주최:한국전력공사 외 2",
       "weight": 0.0,
       "source": "kctf"
     },
