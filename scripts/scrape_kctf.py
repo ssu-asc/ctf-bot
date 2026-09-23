@@ -58,6 +58,10 @@ def _parse_html(html: str) -> list[CTFEvent]:
             # 날짜 추출 (카드 텍스트에서)
             card_text = card.get_text()
             start = _extract_date(card_text)
+            if not start:
+                # 시작일을 모르면 알림 시점을 계산할 수 없으므로 건너뜁니다.
+                print(f"[K-CTF] 날짜 파싱 실패로 제외: {title}")
+                continue
 
             # 상태 (진행 예정 / 종료 등)
             status = ""
@@ -68,12 +72,12 @@ def _parse_html(html: str) -> list[CTFEvent]:
                     break
 
             event_id = f"kctf-{title.lower().replace(' ', '-')}"
-            finish = start + timedelta(days=1) if start else datetime.now(tz=KST)
+            finish = start + timedelta(days=1)
 
             events.append(CTFEvent(
                 id=event_id,
                 title=title,
-                start=start or datetime.now(tz=KST),
+                start=start,
                 finish=finish,
                 url=url,
                 source="kctf",
