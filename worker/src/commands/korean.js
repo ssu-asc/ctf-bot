@@ -1,7 +1,7 @@
 /**
  * /korean - 국내 CTF 대회 목록을 조회합니다.
  *
- * GitHub Actions가 매시간 K-CTF를 스크래핑하여 data/kctf.json에 저장하고,
+ * GitHub Actions가 5분 주기로 K-CTF를 스크래핑하여 data/kctf.json에 저장하고,
  * 이 커맨드는 해당 캐시 파일을 읽어서 응답합니다.
  */
 

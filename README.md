@@ -17,17 +17,21 @@ ASC의 `관심분야-선택` 메시지에서 🌐 웹 / 💥 포너블 / 🧩 �
 
 ASC 동아리 CTF 알림 + 협업 디스코드 봇.
 
-- **자동 알림**: GitHub Actions가 매시간 CTFtime.org + K-CTF.org를 확인하여 Discord Webhook으로 알림
+- **자동 알림**: GitHub Actions가 5분 주기로 K-CTF.org를 확인하여 새 대회를 발견하면 Discord Webhook으로 한 번 알립니다. 시작 3일 전 등 시작일 기준 알림은 보내지 않습니다.
 - **협업 기능**: Cloudflare Workers가 슬래시 커맨드를 처리하여 CTF별 포럼 채널 생성/관리
 
 ## 아키텍처
 
 ```
-GitHub Actions (cron 매시간) → CTFtime/K-CTF 확인 → Discord Webhook 알림
+GitHub Actions (cron 5분) → K-CTF 새 대회 확인 → Discord Webhook 알림
 Cloudflare Workers → Discord Interaction 처리 → 포럼 채널/쓰레드 관리
 ```
 
 비용: 전부 무료 (GitHub Actions public repo + Cloudflare Workers free tier)
+
+알림은 게시 순간의 푸시 방식이 아니라 주기적으로 확인하는 방식입니다. [GitHub Actions 예약 실행](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule)은 혼잡 시 지연될 수 있으므로 5분 이내 도착을 보장하지 않습니다. 이미 알린 게시물은 제목이 바뀌어도 다시 보내지 않고, 전송 실패 시 다음 실행에서 재시도합니다. 기존 알림 이력이 있는 대회와 종료된 대회는 제외하며, 전환 시 아직 알리지 않은 예정 대회는 첫 실행에서 알립니다.
+
+알림 검증: `python3 -m unittest discover -s scripts -p 'test_*.py' -v` (외부 메시지 전송 없음).
 
 ## 슬래시 커맨드
 
@@ -88,6 +92,6 @@ cd worker
 npm install
 wrangler deploy
 
-# 알림은 GitHub Actions가 자동 실행 (매시간)
+# 새 대회 알림은 GitHub Actions가 자동 실행 (5분 주기, 실행 지연 가능)
 # 수동 테스트: Actions 탭 → workflow_dispatch
 ```

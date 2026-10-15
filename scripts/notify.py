@@ -2,7 +2,7 @@
 """CTF 알림 메인 스크립트.
 
 K-CTF에서 국내 CTF 이벤트를 수집하고,
-알림 조건에 해당하는 이벤트를 Discord Webhook으로 전송합니다.
+처음 발견한 대회를 시작일까지 기다리지 않고 Discord Webhook으로 전송합니다.
 
 Usage:
     python scripts/notify.py
@@ -18,6 +18,7 @@ import os
 import sys
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
+from urllib.parse import urlsplit
 
 import httpx
 
@@ -29,38 +30,7 @@ KCTF_CACHE = Path(__file__).resolve().parent.parent / "data" / "kctf.json"
 
 KST = timezone(timedelta(hours=9))
 
-ALERT_CONFIG = [
-    {
-        "type": "starts_now",
-        "emoji": "\U0001f680",
-        "label": "대회 시작",
-        "check": lambda e, now: e.start <= now <= e.start + timedelta(hours=1),
-    },
-    {
-        "type": "starts_1h",
-        "emoji": "\U0001f514",
-        "label": "1시간 후 시작",
-        "check": lambda e, now: timedelta(minutes=55) <= (e.start - now) <= timedelta(minutes=65),
-    },
-    {
-        "type": "starts_tomorrow",
-        "emoji": "\u23f0",
-        "label": "내일 시작",
-        "check": lambda e, now: timedelta(hours=23) <= (e.start - now) <= timedelta(hours=25),
-    },
-    {
-        "type": "starts_3d",
-        "emoji": "\U0001f4cb",
-        "label": "3일 전",
-        "check": lambda e, now: timedelta(hours=71) <= (e.start - now) <= timedelta(hours=73),
-    },
-    {
-        "type": "starts_7d",
-        "emoji": "\U0001f4c5",
-        "label": "1주일 전",
-        "check": lambda e, now: timedelta(hours=167) <= (e.start - now) <= timedelta(hours=169),
-    },
-]
+NEW_EVENT_ALERT = "new_event"
 
 
 def get_webhook_url() -> str:
@@ -103,9 +73,18 @@ def send_webhook(webhook_url: str, embed: dict) -> bool:
         resp = httpx.post(webhook_url, json=payload, timeout=15)
         resp.raise_for_status()
         return True
-    except httpx.HTTPError as e:
-        print(f"[Webhook] 전송 실패: {e}")
+    except httpx.HTTPError:
+        # 예외 문자열에는 비밀 Webhook URL이 포함될 수 있습니다.
+        print("[Webhook] 전송 실패 (다음 실행에서 재시도)")
         return False
+
+
+def announcement_id(event: CTFEvent) -> str:
+    """제목이 수정되어도 동일한 K-CTF 게시물은 다시 알리지 않습니다."""
+    path = urlsplit(event.url).path.rstrip("/")
+    if path.startswith("/contests/"):
+        return f"kctf-post-{path.rsplit('/', 1)[-1]}"
+    return event.id
 
 
 def main() -> int:
@@ -133,7 +112,8 @@ def main() -> int:
         if future:
             event = future[0]
             embed = build_embed(event, "\U0001f9ea", "테스트 알림")
-            send_webhook(webhook_url, embed)
+            if not send_webhook(webhook_url, embed):
+                return 1
             print(f"[TEST] 테스트 알림 전송: {event.title}")
         else:
             print("[TEST] 미래 이벤트 없음")
@@ -142,28 +122,37 @@ def main() -> int:
     # 상태 로드
     notified = state.load()
     sent_count = 0
+    failed_count = 0
 
     for event in events:
-        for alert in ALERT_CONFIG:
-            if state.is_sent(notified, event.id, alert["type"]):
-                continue
-            if not alert["check"](event, now):
-                continue
+        if event.finish <= now or event.restrictions == "종료":
+            continue
 
-            embed = build_embed(event, alert["emoji"], alert["label"])
-            if send_webhook(webhook_url, embed):
-                state.mark_sent(notified, event.id, alert["type"])
-                sent_count += 1
-                print(f"[SENT] {alert['emoji']} {alert['label']}: {event.title}")
+        event_key = announcement_id(event)
+        if state.is_sent(notified, event_key, NEW_EVENT_ALERT):
+            continue
+
+        # 기존 시작일 알림으로 이미 소개한 대회는 재발송하지 않습니다.
+        # 새 키로 이관하여 이후 제목 변경에도 중복을 막습니다.
+        if notified.get(event.id, {}).get("sent"):
+            state.mark_sent(notified, event_key, NEW_EVENT_ALERT)
+            continue
+
+        embed = build_embed(event, "\U0001f195", "새 대회 등록")
+        if send_webhook(webhook_url, embed):
+            state.mark_sent(notified, event_key, NEW_EVENT_ALERT)
+            state.save(notified)
+            sent_count += 1
+            print(f"[SENT] 새 대회 등록: {event.title}")
+        else:
+            failed_count += 1
 
     # 상태 저장
     state.save(notified)
 
-    # 오래된 항목 정리 (30일 이전)
-    _cleanup_old_entries(notified, now)
-
-    print(f"전송 완료: {sent_count}건")
-    return 0
+    # 등록 알림 이력은 유지합니다. 삭제하면 오래된 게시물을 다시 알리게 됩니다.
+    print(f"전송 완료: {sent_count}건, 실패: {failed_count}건")
+    return 1 if failed_count else 0
 
 
 def _save_kctf_cache(events: list[CTFEvent]) -> None:
@@ -177,16 +166,6 @@ def _save_kctf_cache(events: list[CTFEvent]) -> None:
         encoding="utf-8",
     )
     print(f"[K-CTF] 캐시 저장: {len(events)}개 이벤트")
-
-
-def _cleanup_old_entries(notified: dict, now: datetime) -> None:
-    """30일 이상 된 항목을 정리합니다."""
-    # 간단히 300개 초과 시 앞쪽 항목 제거
-    if len(notified) > 300:
-        keys = list(notified.keys())
-        for key in keys[:len(keys) - 200]:
-            del notified[key]
-        state.save(notified)
 
 
 if __name__ == "__main__":
