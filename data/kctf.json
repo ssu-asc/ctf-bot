@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-19T00:35:52.462999+00:00",
+  "updated_at": "2026-10-19T05:12:53.037674+00:00",
   "events": [
     {
       "id": "kctf-제4회-2026-충청권-바이오헬스-사이버보안-경진대회",
@@ -28,6 +28,16 @@
       "finish": "2026-11-08T00:00:00+09:00",
       "url": "http://k-ctf.org/contests/6aceff8b8a8e61fb7c3f3397",
       "format": "주최:대한민국 국방부|주관:사이버작전사령부",
+      "weight": 0.0,
+      "source": "kctf"
+    },
+    {
+      "id": "kctf-2026-layer7-ctf",
+      "title": "2026 Layer7 CTF",
+      "start": "2026-11-21T00:00:00+09:00",
+      "finish": "2026-11-22T00:00:00+09:00",
+      "url": "http://k-ctf.org/contests/6ad58519c7b2acf87e1f5487",
+      "format": "주최:선린인터넷고등학교|주관:Layer7|운영:Layer7",
       "weight": 0.0,
       "source": "kctf"
     },
