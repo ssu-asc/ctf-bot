@@ -1,6 +1,16 @@
 {
-  "updated_at": "2026-11-07T07:13:22.920266+00:00",
+  "updated_at": "2026-11-07T13:59:06.950670+00:00",
   "events": [
+    {
+      "id": "kctf-2026-layer7-ctf",
+      "title": "2026 Layer7 CTF",
+      "start": "2026-11-21T00:00:00+09:00",
+      "finish": "2026-11-22T00:00:00+09:00",
+      "url": "http://k-ctf.org/contests/6ad58519c7b2acf87e1f5487",
+      "format": "주최:선린인터넷고등학교|주관:Layer7|운영:Layer7",
+      "weight": 0.0,
+      "source": "kctf"
+    },
     {
       "id": "kctf-2026-화이트햇",
       "title": "2026 화이트햇",
@@ -18,16 +28,6 @@
       "finish": "2026-11-01T00:00:00+09:00",
       "url": "http://k-ctf.org/contests/6ad7412c5c2458c278b68c1f",
       "format": "주최:울산정보보호지원센터",
-      "weight": 0.0,
-      "source": "kctf"
-    },
-    {
-      "id": "kctf-2026-layer7-ctf",
-      "title": "2026 Layer7 CTF",
-      "start": "2026-11-21T00:00:00+09:00",
-      "finish": "2026-11-22T00:00:00+09:00",
-      "url": "http://k-ctf.org/contests/6ad58519c7b2acf87e1f5487",
-      "format": "주최:선린인터넷고등학교|주관:Layer7|운영:Layer7",
       "weight": 0.0,
       "source": "kctf"
     },
@@ -58,16 +58,6 @@
       "finish": "2026-09-05T00:00:00+09:00",
       "url": "http://k-ctf.org/contests/6a38e001c431b0b53a90444b",
       "format": "주최:중부대학교 정보보호학전공|운영:정보보안 동아리 S.C.P",
-      "weight": 0.0,
-      "source": "kctf"
-    },
-    {
-      "id": "kctf-dah-2026",
-      "title": "DAH 2026",
-      "start": "2026-06-15T00:00:00+09:00",
-      "finish": "2026-06-16T00:00:00+09:00",
-      "url": "http://k-ctf.org/contests/6a0797cac431b0b53a904417",
-      "format": "주최:LIG D&A|운영:LIG D&A",
       "weight": 0.0,
       "source": "kctf"
     }
